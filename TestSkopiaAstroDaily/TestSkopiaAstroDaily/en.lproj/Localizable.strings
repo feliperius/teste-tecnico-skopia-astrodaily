@@ -1,0 +1,46 @@
+/* 
+  Localizable.strings
+  TestSkopiaAstroDaily
+
+  Created on 16/09/2025.
+*/
+
+"tab.today" = "Today";
+"tab.list" = "List";
+"tab.favorites" = "Favorites";
+
+// Feed View
+"feed.title" = "Picture of the Day";
+"feed.loading" = "Loading picture of the day...";
+"feed.no_photo" = "No photo available";
+"feed.try_again_later" = "Try again later";
+"feed.reload" = "Reload";
+"feed.loading_image" = "Loading image...";
+"feed.image_error" = "Error loading image";
+"feed.no_media" = "No media available for this date";
+
+// List View
+"list.title" = "Recent Days";
+"list.loading" = "Loading photo list...";
+
+// Favorites View
+"favorites.title" = "Favorites";
+"favorites.update" = "Update";
+"favorites.no_favorites" = "No favorites yet";
+"favorites.add_favorites_tip" = "Add photos to favorites by tapping the star";
+
+// Detail View
+"detail.title" = "Details";
+"detail.no_media" = "No media available";
+
+// Error Messages
+"error.network" = "Network error";
+"error.try_again" = "Try again";
+"error.no_data_for_date" = "No data available for this date";
+"error.http" = "HTTP Error";
+"error.decoding" = "Decoding error";
+"error.invalid_response" = "Invalid response";
+
+// Common
+"copyright" = "©";
+"loading" = "Loading...";

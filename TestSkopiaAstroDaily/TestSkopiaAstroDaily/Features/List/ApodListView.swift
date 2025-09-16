@@ -7,10 +7,10 @@ struct ApodListView: View {
         Group {
             if viewModel.isLoading { 
                 VStack(spacing: 16) {
-                    ProgressView("Carregando…")
+                    ProgressView(Strings.loading)
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .foregroundColor(.white)
-                    Text("Carregando lista de fotos...")
+                    Text(Strings.listLoading)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
@@ -23,7 +23,7 @@ struct ApodListView: View {
             else { list }
         }
         .background(Color.black)
-        .navigationTitle("Últimos dias")
+        .navigationTitle(Strings.listTitle)
         .task { await viewModel.load() }
     }
 

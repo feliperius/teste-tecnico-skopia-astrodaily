@@ -7,7 +7,6 @@ struct ApodDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                // Imagem ou vídeo
                 if let url = viewModel.item.displayImageURL, viewModel.item.mediaTypeEnum == .image {
                     AsyncImage(url: url) { phase in
                         switch phase {
@@ -54,7 +53,7 @@ struct ApodDetailView: View {
                                 Image(systemName: "photo.badge.exclamationmark")
                                     .font(.largeTitle)
                                     .foregroundColor(.gray)
-                                Text("Sem mídia disponível")
+                                Text(Strings.detailNoMedia)
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                             }
@@ -73,7 +72,7 @@ struct ApodDetailView: View {
                         .foregroundColor(.gray)
                     
                     if let copyright = viewModel.item.copyright {
-                        Text("© \(copyright)")
+                        Text("\(Strings.copyright) \(copyright)")
                             .font(.caption)
                             .foregroundColor(.gray)
                             .italic()
@@ -88,7 +87,7 @@ struct ApodDetailView: View {
         }
         .padding()
         .background(Color.black)
-        .navigationTitle("Detalhes")
+        .navigationTitle(Strings.detailTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             Button(action: { viewModel.toggleFavorite() }) {

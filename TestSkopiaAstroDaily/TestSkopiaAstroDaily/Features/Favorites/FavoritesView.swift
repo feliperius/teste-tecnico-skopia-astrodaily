@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @State private var vm = FavoritesViewModel()
+    @State private var viewModel = FavoritesViewModel()
 
     var body: some View {
-        List(vm.items) { item in
+        List(viewModel.items) { item in
             NavigationLink(destination: ApodDetailView(item: item)) {
                 HStack(spacing: 12) {
                     AsyncImage(url: item.displayImageURL) { phase in
@@ -56,24 +56,24 @@ struct FavoritesView: View {
         }.listStyle(PlainListStyle())
         .background(Color.black)
         .scrollContentBackground(.hidden)
-        .navigationTitle("Favoritos")
+        .navigationTitle(Strings.favoritesTitle)
         .toolbar { 
-            Button("Atualizar") { 
-                vm.reload() 
+            Button(Strings.favoritesUpdate) { 
+                viewModel.reload()
             }
             .foregroundColor(.white)
         }
-        .onAppear { vm.reload() }
+        .onAppear { viewModel.reload() }
         .overlay {
-            if vm.items.isEmpty {
+            if viewModel.items.isEmpty {
                 VStack(spacing: 16) {
                     Image(systemName: "star")
                         .font(.system(size: 50))
                         .foregroundColor(.gray)
-                    Text("Nenhum favorito ainda")
+                    Text(Strings.favoritesNoFavorites)
                         .font(.headline)
                         .foregroundColor(.white)
-                    Text("Adicione fotos aos favoritos tocando na estrela")
+                    Text(Strings.favoritesAddTip)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)

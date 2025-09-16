@@ -14,13 +14,13 @@ struct RootTabs: View {
     var body: some View {
         TabView {
             NavigationStack { FeedView() }
-                .tabItem { Label("Hoje", systemImage: "sparkles") }
+                .tabItem { Label(Strings.tabToday, systemImage: "sparkles") }
 
             NavigationStack { ApodListView() }
-                .tabItem { Label("Lista", systemImage: "photo.on.rectangle") }
+                .tabItem { Label(Strings.tabList, systemImage: "photo.on.rectangle") }
 
             NavigationStack { FavoritesView() }
-                .tabItem { Label("Favoritos", systemImage: "star.fill") }
+                .tabItem { Label(Strings.tabFavorites, systemImage: "star.fill") }
         }
         .background(Color.black)
         .accentColor(.white)

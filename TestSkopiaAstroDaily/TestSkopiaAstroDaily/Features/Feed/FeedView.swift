@@ -11,7 +11,7 @@ struct FeedView: View {
                         ProgressView()
                             .scaleEffect(1.5)
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                        Text("Carregando foto do dia...")
+                        Text(Strings.feedLoading)
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }
@@ -28,18 +28,24 @@ struct FeedView: View {
                         Image(systemName: "photo")
                             .font(.system(size: 50))
                             .foregroundColor(.gray)
-                        Text("Nenhuma foto disponível")
+                        Text(Strings.feedNoPhoto)
                             .font(.headline)
                             .foregroundColor(.white)
-                        Text("Tente novamente mais tarde")
+                        Text(Strings.feedTryAgainLater)
                             .font(.subheadline)
                             .foregroundColor(.gray)
+                        Button(Strings.feedReload) {
+                            Task { await viewModel.loadTodayApod() }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .accentColor(.white)
+                        .foregroundColor(.black)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.black)
                 }
             }
-            .navigationTitle("Foto do Dia")
+            .navigationTitle(Strings.feedTitle)
             .navigationBarTitleDisplayMode(.large)
             .toolbar { toolbar }
             .background(Color.black)
@@ -65,7 +71,7 @@ struct FeedView: View {
                                         ProgressView()
                                             .scaleEffect(1.2)
                                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                        Text("Carregando imagem...")
+                                        Text(Strings.feedLoadingImage)
                                             .font(.caption)
                                             .foregroundColor(.gray)
                                     }
@@ -85,7 +91,7 @@ struct FeedView: View {
                                         Image(systemName: "exclamationmark.triangle")
                                             .font(.largeTitle)
                                             .foregroundColor(.orange)
-                                        Text("Erro ao carregar imagem")
+                                        Text(Strings.feedImageError)
                                             .font(.caption)
                                             .foregroundColor(.gray)
                                     }
@@ -109,7 +115,7 @@ struct FeedView: View {
                                 Image(systemName: "photo.badge.exclamationmark")
                                     .font(.largeTitle)
                                     .foregroundColor(.gray)
-                                Text("Sem mídia disponível para esta data")
+                                Text(Strings.feedNoMedia)
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                                     .multilineTextAlignment(.center)
@@ -128,7 +134,7 @@ struct FeedView: View {
                         .foregroundColor(.gray)
                     
                     if let copyright = item.copyright {
-                        Text("© \(copyright)")
+                        Text("\(Strings.copyright) \(copyright)")
                             .font(.caption)
                             .foregroundColor(.gray)
                             .italic()
@@ -192,10 +198,10 @@ struct ErrorView: View {
             Image(systemName: "wifi.exclamationmark")
                 .font(.largeTitle)
                 .foregroundColor(.red)
-            Text(message)
+            Text(Strings.errorTryAgain)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white)
-            Button("Tentar novamente", action: retry)
+            Button(Strings.errorTryAgain, action: retry)
                 .buttonStyle(.borderedProminent)
                 .accentColor(.white)
                 .foregroundColor(.black)
