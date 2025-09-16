@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct SkopiaAstroDailyApp: App {
+struct HomeApp: App {
     var body: some Scene {
         WindowGroup { RootTabs() }
     }
