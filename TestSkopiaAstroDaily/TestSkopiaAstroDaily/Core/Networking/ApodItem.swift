@@ -17,6 +17,14 @@ struct ApodItem: Codable, Identifiable, Hashable {
         if let url = url, let u = URL(string: url) { return u }
         return nil
     }
+    var imageURL: URL? { displayImageURL }
+    var videoURL: URL? { url != nil ? URL(string: url!) : nil }
+    var isVideo: Bool { mediaTypeEnum == .video }
+    var isDirectVideo: Bool {
+        guard let v = videoURL else { return false }
+        let ext = v.pathExtension.lowercased()
+        return ["mp4", "mov", "m3u8"].contains(ext)
+    }
     
     enum CodingKeys: String, CodingKey {
         case date

@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 struct FavoritesView: View {
     @State private var viewModel = FavoritesViewModel()
@@ -7,9 +8,8 @@ struct FavoritesView: View {
         List(viewModel.items) { item in
             NavigationLink(destination: ApodDetailView(item: item)) {
                 HStack(spacing: 12) {
-                    AsyncImage(url: item.displayImageURL) { phase in
-                        switch phase {
-                        case .empty:
+                    KFImage.url(item.displayImageURL)
+                        .placeholder {
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.gray.opacity(0.3))
                                 .frame(width: 72, height: 72)
@@ -18,27 +18,13 @@ struct FavoritesView: View {
                                         .scaleEffect(0.7)
                                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                                 }
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 72, height: 72)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                        case .failure(_):
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: 72, height: 72)
-                                .overlay {
-                                    Image(systemName: "photo")
-                                        .foregroundColor(.gray)
-                                        .font(.title3)
-                                }
-                        @unknown default:
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: 72, height: 72)
                         }
-                    }
+                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 144, height: 144)))
+                        .cacheOriginalImage()
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 72, height: 72)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(item.title)

@@ -1,4 +1,6 @@
 import SwiftUI
+import AVKit
+import Kingfisher
 
 struct ApodDetailView: View {
     @State private var viewModel: ApodDetailViewModel
@@ -8,9 +10,8 @@ struct ApodDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 if let url = viewModel.item.displayImageURL, viewModel.item.mediaTypeEnum == .image {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .empty:
+                    KFImage.url(url)
+                        .placeholder {
                             RoundedRectangle(cornerRadius: 16)
                                 .fill(Color.gray.opacity(0.3))
                                 .frame(height: 300)
@@ -19,31 +20,44 @@ struct ApodDetailView: View {
                                         .scaleEffect(1.2)
                                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                                 }
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .cornerRadius(16)
-                                .shadow(radius: 4)
-                        case .failure(_):
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(height: 300)
-                                .overlay {
-                                    Image(systemName: "exclamationmark.triangle")
-                                        .font(.largeTitle)
-                                        .foregroundColor(.orange)
-                                }
-                        @unknown default:
-                            EmptyView()
                         }
-                    }
-                    .frame(maxHeight: 500)
-                } else if let url = viewModel.item.displayImageURL {
-                    WebView(url: url)
-                        .frame(height: 320)
+                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * 2, height: 600)))
+                        .cacheOriginalImage()
+                        .fade(duration: 0.25)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .cornerRadius(16)
                         .shadow(radius: 4)
+                        .frame(maxHeight: 500)
+                } else if viewModel.item.mediaTypeEnum == .video {
+                    if let raw = viewModel.item.url, let videoURL = URL(string: raw), ["mp4", "mov", "m3u8"].contains(videoURL.pathExtension.lowercased()) {
+                        VideoPlayer(player: AVPlayer(url: videoURL))
+                            .frame(height: 320)
+                            .cornerRadius(16)
+                            .shadow(radius: 4)
+                    } else {
+                        if let thumb = viewModel.item.displayImageURL {
+                            KFImage.url(thumb)
+                                .placeholder {
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.gray.opacity(0.3))
+                                        .frame(height: 220)
+                                        .overlay(ProgressView().scaleEffect(1.0))
+                                }
+                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * 2, height: 440)))
+                                .cacheOriginalImage()
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 220)
+                                .clipped()
+                                .cornerRadius(12)
+                                .frame(maxWidth: .infinity)
+                        }
+
+                        if let raw = viewModel.item.url, let videoURL = URL(string: raw) {
+                            HStack { Spacer(); Link("Abrir vídeo", destination: videoURL).padding(.top, 8); Spacer() }
+                        }
+                    }
                 } else {
                     RoundedRectangle(cornerRadius: 16)
                         .fill(Color.gray.opacity(0.3))
@@ -59,8 +73,6 @@ struct ApodDetailView: View {
                             }
                         }
                 }
-
-                // Conteúdo textual
                 VStack(alignment: .leading, spacing: 12) {
                     Text(viewModel.item.title)
                         .font(.title2)

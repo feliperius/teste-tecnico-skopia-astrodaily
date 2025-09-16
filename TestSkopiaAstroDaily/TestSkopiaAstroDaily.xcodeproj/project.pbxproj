@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74A5B26A2E7A021D005585C6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 74A5B2692E7A021D005585C6 /* Kingfisher */; };
 		74D5116C2E77661300B4B922 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 74D5116B2E77661300B4B922 /* Alamofire */; };
 		74D5116E2E77662C00B4B922 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 74D5116D2E77662C00B4B922 /* Nuke */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74A5B26A2E7A021D005585C6 /* Kingfisher in Frameworks */,
 				74D5116C2E77661300B4B922 /* Alamofire in Frameworks */,
 				74D5116E2E77662C00B4B922 /* Nuke in Frameworks */,
 			);
@@ -129,6 +131,7 @@
 			packageProductDependencies = (
 				74D5116B2E77661300B4B922 /* Alamofire */,
 				74D5116D2E77662C00B4B922 /* Nuke */,
+				74A5B2692E7A021D005585C6 /* Kingfisher */,
 			);
 			productName = TestSkopiaAstroDaily;
 			productReference = 74FACAB22E77586D00249998 /* TestSkopiaAstroDaily.app */;
@@ -216,6 +219,7 @@
 			packageReferences = (
 				74FACAE42E775ABF00249998 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				74FACAE62E775CB800249998 /* XCRemoteSwiftPackageReference "Nuke" */,
+				741473252E79FF7500B20155 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 74FACAB32E77586D00249998 /* Products */;
@@ -433,6 +437,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.felipeperius.astroDaily.TestSkopiaAstroDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -462,6 +470,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.felipeperius.astroDaily.TestSkopiaAstroDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -582,6 +594,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		741473252E79FF7500B20155 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.5.0;
+			};
+		};
 		74FACAE42E775ABF00249998 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -601,6 +621,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		74A5B2692E7A021D005585C6 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 741473252E79FF7500B20155 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		74D5116B2E77661300B4B922 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 74FACAE42E775ABF00249998 /* XCRemoteSwiftPackageReference "Alamofire" */;
