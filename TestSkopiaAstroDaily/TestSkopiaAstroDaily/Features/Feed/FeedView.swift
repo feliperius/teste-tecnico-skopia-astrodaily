@@ -48,65 +48,31 @@ struct FeedView: View {
                 }
             }
             .navigationTitle(Strings.feedTitle)
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbar }
             .background(Color.black)
         }
         .task { await viewModel.loadTodayApod() }
-        .refreshable {
-            await viewModel.loadTodayApod()
-        }
+        .refreshable { await viewModel.loadTodayApod() }
     }
 
     private func content(_ item: ApodItem) -> some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 12) {
                 if let url = item.displayImageURL, item.mediaTypeEnum == .image {
-                    KFImage.url(url)
-                        .placeholder {
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(height: 300)
-                                .overlay {
-                                    VStack(spacing: 8) {
-                                        ProgressView()
-                                            .scaleEffect(1.2)
-                                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                        Text(Strings.feedLoadingImage)
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                    }
-                                }
-                        }
-                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * 2, height: 600)))
-                        .cacheOriginalImage()
-                        .fade(duration: 0.25)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(16)
-                        .shadow(radius: 4)
-                        .frame(maxHeight: 500)
+                    RemoteImage(url: url, placeholderHeight: 420, cornerRadius: 0, contentMode: .fill)
+                        .frame(maxWidth: .infinity, minHeight: 380, maxHeight: 520)
+                        .clipped()
+                        .shadow(radius: 6)
                 } else if item.mediaTypeEnum == .video {
-                    // Tenta reproduzir diretamente se for um arquivo de vídeo (mp4/mov/m3u8)
                     if let raw = item.url, let videoURL = URL(string: raw), ["mp4", "mov", "m3u8"].contains(videoURL.pathExtension.lowercased()) {
                         VideoPlayer(player: AVPlayer(url: videoURL))
                             .frame(height: 300)
                             .cornerRadius(16)
                             .shadow(radius: 4)
                     } else {
-                        // Caso não seja um link direto de vídeo (ex.: YouTube), mostra thumbnail e botão para abrir no navegador
                         if let thumb = item.displayImageURL {
-                            KFImage.url(thumb)
-                                .placeholder {
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.gray.opacity(0.2))
-                                        .frame(height: 220)
-                                        .overlay(ProgressView().scaleEffect(1.0))
-                                }
-                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * 2, height: 440)))
-                                .cacheOriginalImage()
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
+                            RemoteImage(url: thumb, placeholderHeight: 220, cornerRadius: 12, contentMode: .fill)
                                 .frame(height: 220)
                                 .clipped()
                                 .cornerRadius(12)
@@ -159,7 +125,7 @@ struct FeedView: View {
                 .padding(.horizontal)
             }
         }
-        .padding()
+        .padding(.bottom)
         .background(Color.black)
     }
     

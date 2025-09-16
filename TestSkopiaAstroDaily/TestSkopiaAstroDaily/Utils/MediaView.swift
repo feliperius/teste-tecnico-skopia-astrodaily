@@ -22,17 +22,7 @@ struct MediaView: View {
                 } else {
                     VStack(spacing: 8) {
                         if let thumb = item.imageURL {
-                            KFImage.url(thumb)
-                                .placeholder {
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.gray.opacity(0.2))
-                                        .frame(height: maxHeight ?? 220)
-                                        .overlay(ProgressView())
-                                }
-                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * 2, height: maxHeight ?? 220)))
-                                .cacheOriginalImage()
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
+                            RemoteImage(url: thumb, placeholderHeight: maxHeight ?? 220, cornerRadius: 12, contentMode: .fill)
                                 .frame(height: maxHeight ?? 220)
                                 .clipped()
                                 .cornerRadius(12)
@@ -49,17 +39,7 @@ struct MediaView: View {
             } else {
                 // image
                 if let url = item.imageURL {
-                    KFImage.url(url)
-                        .placeholder {
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.gray.opacity(0.2))
-                                .frame(height: maxHeight ?? 300)
-                                .overlay(ProgressView())
-                        }
-                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * 2, height: maxHeight ?? 300)))
-                        .cacheOriginalImage()
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                    RemoteImage(url: url, placeholderHeight: maxHeight ?? 300, cornerRadius: 12, contentMode: .fit)
                         .cornerRadius(12)
                         .shadow(radius: 4)
                         .frame(maxHeight: maxHeight)
@@ -73,7 +53,6 @@ struct MediaView: View {
 
 struct MediaView_Previews: PreviewProvider {
     static var previews: some View {
-        // ...existing code...
         Text("MediaView preview")
     }
 }

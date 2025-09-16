@@ -10,22 +10,7 @@ struct ApodDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 if let url = viewModel.item.displayImageURL, viewModel.item.mediaTypeEnum == .image {
-                    KFImage.url(url)
-                        .placeholder {
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(height: 300)
-                                .overlay {
-                                    ProgressView()
-                                        .scaleEffect(1.2)
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                }
-                        }
-                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * 2, height: 600)))
-                        .cacheOriginalImage()
-                        .fade(duration: 0.25)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                    RemoteImage(url: url, placeholderHeight: 300, cornerRadius: 16, contentMode: .fit)
                         .cornerRadius(16)
                         .shadow(radius: 4)
                         .frame(maxHeight: 500)
@@ -37,17 +22,7 @@ struct ApodDetailView: View {
                             .shadow(radius: 4)
                     } else {
                         if let thumb = viewModel.item.displayImageURL {
-                            KFImage.url(thumb)
-                                .placeholder {
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.gray.opacity(0.3))
-                                        .frame(height: 220)
-                                        .overlay(ProgressView().scaleEffect(1.0))
-                                }
-                                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: UIScreen.main.bounds.width * 2, height: 440)))
-                                .cacheOriginalImage()
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
+                            RemoteImage(url: thumb, placeholderHeight: 220, cornerRadius: 12, contentMode: .fill)
                                 .frame(height: 220)
                                 .clipped()
                                 .cornerRadius(12)

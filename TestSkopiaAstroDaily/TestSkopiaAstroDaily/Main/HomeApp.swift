@@ -3,9 +3,10 @@ import SwiftUI
 @main
 struct HomeApp: App {
     var body: some Scene {
-        WindowGroup { 
+        WindowGroup {
             RootTabs()
                 .preferredColorScheme(.dark)
+                .environment(\.locale, Locale(identifier: "pt_BR"))
         }
     }
 }

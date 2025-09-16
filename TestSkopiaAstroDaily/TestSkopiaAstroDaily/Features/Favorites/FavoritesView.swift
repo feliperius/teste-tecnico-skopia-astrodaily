@@ -8,21 +8,7 @@ struct FavoritesView: View {
         List(viewModel.items) { item in
             NavigationLink(destination: ApodDetailView(item: item)) {
                 HStack(spacing: 12) {
-                    KFImage.url(item.displayImageURL)
-                        .placeholder {
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: 72, height: 72)
-                                .overlay {
-                                    ProgressView()
-                                        .scaleEffect(0.7)
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                }
-                        }
-                        .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 144, height: 144)))
-                        .cacheOriginalImage()
-                        .resizable()
-                        .scaledToFill()
+                    RemoteImage(url: item.displayImageURL, placeholderHeight: 72, cornerRadius: 12, contentMode: .fill)
                         .frame(width: 72, height: 72)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
 
