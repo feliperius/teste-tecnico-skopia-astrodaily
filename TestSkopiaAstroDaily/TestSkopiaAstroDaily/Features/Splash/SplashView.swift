@@ -203,7 +203,6 @@ struct SplashView: View {
             }
         }
         
-        // Show creator text
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
             withAnimation(.easeIn(duration: 0.6)) {
                 showCreatorText = true

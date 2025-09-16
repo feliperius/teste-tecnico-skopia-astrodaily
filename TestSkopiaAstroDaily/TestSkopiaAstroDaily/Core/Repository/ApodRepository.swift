@@ -13,7 +13,6 @@ import Observation
         let dateKey = date.apodString
         
         if let cached = cache[dateKey] {
-            print("📦 ApodRepository: Item encontrado no cache para \(dateKey)")
             return cached
         }
     
@@ -34,11 +33,8 @@ import Observation
         }
         
         while attempts < maxAttempts {
-            print("🔄 ApodRepository: Tentativa \(attempts + 1) para \(dateToTry.apodString)")
-            
             do {
                 let item = try await getApod(for: dateToTry)
-                print("✅ ApodRepository: APOD atual encontrado para \(dateToTry.apodString)")
                 return (item, dateToTry)
             } catch let error as NetworkError {
                 if case .http(404) = error {
@@ -53,8 +49,7 @@ import Observation
         
         throw NetworkError.noDataForDate("últimos \(maxAttempts) dias")
     }
-    
-    /// Busca range de APODs
+
     func getApodRange(start: Date, end: Date) async throws -> [ApodItem] {
         let dateRange = start.daysUntil(end)
         let cachedItems = dateRange.compactMap { cache[$0.apodString] }
@@ -74,7 +69,6 @@ import Observation
     
     func clearCache() {
         cache.removeAll()
-        print("🗑️ ApodRepository: Cache limpo")
     }
 }
 

@@ -10,8 +10,8 @@ enum APIConfig {
             let dict = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
             let key = dict["NASA_API_KEY"] as? String
         else { 
-            print("⚠️ Usando DEMO_KEY - adicione sua chave da NASA no Secrets.plist")
-            return "DEMO_KEY" 
+            debugPrint("⚠️ Usando DEMO_KEY - adicione sua chave da NASA no Secrets.plist")
+            return "DEMO_KEY"
         }
         return key
     }

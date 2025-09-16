@@ -14,7 +14,6 @@ import Observation
     
     func toggleFavorite() { favoritesManager.toggleFavorite(item) }
     
-    /// Formata data para exibição
     func formattedDate() -> String {
         DateFormatter.localizedLong(fromAPIDateString: item.date)
     }

@@ -32,31 +32,31 @@ final class NasaApodService: NasaApodServicing {
         let p = params.merging(["api_key": APIConfig.apiKey]) { $1 }
         
         if let date = params["date"] {
-            print("Carregando APOD para: \(date)")
+            debugPrint("Carregando APOD para: \(date)")
         } else if params.contains(where: { $0.key.contains("date") }) {
-            print("Carregando APOD para range")
+            debugPrint("Carregando APOD para range")
         } else {
-            print("Carregando APOD do dia atual")
+            debugPrint("Carregando APOD do dia atual")
         }
         
-        print("Fazendo requisição para: \(APIConfig.baseURL)")
-        print("Parâmetros: \(p)")
+        debugPrint("Fazendo requisição para: \(APIConfig.baseURL)")
+        debugPrint("Parâmetros: \(p)")
         
         return try await withCheckedThrowingContinuation { cont in
             AF.request(APIConfig.baseURL, parameters: p)
                 .responseData { resp in
                     
-                    print("Status: \(resp.response?.statusCode ?? -1)")
+                    debugPrint("Status: \(resp.response?.statusCode ?? -1)")
                     
                     if let data = resp.data {
-                        print("Response size: \(data.count) bytes")
+                        debugPrint("Response size: \(data.count) bytes")
                         
                         if let jsonString = String(data: data, encoding: .utf8) {
-                            print("JSON recebido: \(jsonString)")
+                            debugPrint("JSON recebido: \(jsonString)")
                         }
                         
                         if let statusCode = resp.response?.statusCode, statusCode >= 400 {
-                            print("Erro HTTP: \(statusCode)")
+                            debugPrint("Erro HTTP: \(statusCode)")
                             if statusCode == 404 {
                                 cont.resume(throwing: NetworkError.noDataForDate("esta data"))
                             } else {
@@ -65,20 +65,19 @@ final class NasaApodService: NasaApodServicing {
                             return
                         }
                         
-                        // Tentar decodificar como objeto esperado
                         do {
                             let decoded = try JSONDecoder().decode(T.self, from: data)
-                            print("Decodificação bem-sucedida!")
+                            debugPrint("Decodificação bem-sucedida!")
                             cont.resume(returning: decoded)
                         } catch {
-                            print("Erro de decodificação: \(error)")
+                            debugPrint("Erro de decodificação: \(error)")
                             cont.resume(throwing: NetworkError.decoding)
                         }
                     } else if let error = resp.error {
-                        print("Erro de rede: \(error)")
+                        debugPrint("Erro de rede: \(error)")
                         cont.resume(throwing: NetworkError.invalidResponse)
                     } else {
-                        print("Resposta inválida")
+                        debugPrint("Resposta inválida")
                         cont.resume(throwing: NetworkError.invalidResponse)
                     }
                 }
