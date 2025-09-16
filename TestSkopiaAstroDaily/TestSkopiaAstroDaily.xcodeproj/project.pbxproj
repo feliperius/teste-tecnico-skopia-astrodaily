@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		74A5B26A2E7A021D005585C6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 74A5B2692E7A021D005585C6 /* Kingfisher */; };
 		74D5116C2E77661300B4B922 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 74D5116B2E77661300B4B922 /* Alamofire */; };
-		74D5116E2E77662C00B4B922 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 74D5116D2E77662C00B4B922 /* Nuke */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 			files = (
 				74A5B26A2E7A021D005585C6 /* Kingfisher in Frameworks */,
 				74D5116C2E77661300B4B922 /* Alamofire in Frameworks */,
-				74D5116E2E77662C00B4B922 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,7 +128,6 @@
 			name = TestSkopiaAstroDaily;
 			packageProductDependencies = (
 				74D5116B2E77661300B4B922 /* Alamofire */,
-				74D5116D2E77662C00B4B922 /* Nuke */,
 				74A5B2692E7A021D005585C6 /* Kingfisher */,
 			);
 			productName = TestSkopiaAstroDaily;
@@ -218,7 +215,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				74FACAE42E775ABF00249998 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				74FACAE62E775CB800249998 /* XCRemoteSwiftPackageReference "Nuke" */,
 				741473252E79FF7500B20155 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -610,14 +606,6 @@
 				minimumVersion = 5.10.2;
 			};
 		};
-		74FACAE62E775CB800249998 /* XCRemoteSwiftPackageReference "Nuke" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/Nuke";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.8.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -630,11 +618,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 74FACAE42E775ABF00249998 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		74D5116D2E77662C00B4B922 /* Nuke */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 74FACAE62E775CB800249998 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = Nuke;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
