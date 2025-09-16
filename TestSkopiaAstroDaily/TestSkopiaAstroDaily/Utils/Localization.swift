@@ -14,6 +14,10 @@ extension String {
 
 // Constantes para as strings localizadas
 enum Strings {
+    // Splash Screen
+    static let splashAppName = "splash.app_name".localized
+    static let splashSubtitle = "splash.subtitle".localized
+    
     // Tabs
     static let tabToday = "tab.today".localized
     static let tabList = "tab.list".localized

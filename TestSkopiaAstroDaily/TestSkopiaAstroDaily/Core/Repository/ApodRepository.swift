@@ -12,13 +12,11 @@ import Observation
     func getApod(for date: Date) async throws -> ApodItem {
         let dateKey = date.apodString
         
-        // Verifica cache primeiro
         if let cached = cache[dateKey] {
             print("📦 ApodRepository: Item encontrado no cache para \(dateKey)")
             return cached
         }
-        
-        // Busca do serviço
+    
         let item = try await service.fetchApod(date: date)
         cache[dateKey] = item
         print("💾 ApodRepository: Item cacheado para \(dateKey)")

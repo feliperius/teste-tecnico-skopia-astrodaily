@@ -5,6 +5,10 @@
   Created on 16/09/2025.
 */
 
+// Splash Screen
+"splash.app_name" = "AstroDaily";
+"splash.subtitle" = "Discover the Universe";
+
 "tab.today" = "Today";
 "tab.list" = "List";
 "tab.favorites" = "Favorites";

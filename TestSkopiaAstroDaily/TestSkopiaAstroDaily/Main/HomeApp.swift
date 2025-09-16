@@ -4,9 +4,25 @@ import SwiftUI
 struct HomeApp: App {
     var body: some Scene {
         WindowGroup {
-            RootTabs()
+            AppRootView()
                 .preferredColorScheme(.dark)
                 .environment(\.locale, Locale(identifier: "pt_BR"))
+        }
+    }
+}
+
+struct AppRootView: View {
+    @State private var showSplash = true
+    
+    var body: some View {
+        if showSplash {
+            SplashView {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    showSplash = false
+                }
+            }
+        } else {
+            RootTabs()
         }
     }
 }
