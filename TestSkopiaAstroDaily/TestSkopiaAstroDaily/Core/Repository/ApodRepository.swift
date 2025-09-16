@@ -18,7 +18,6 @@ import Observation
     
         let item = try await service.fetchApod(date: date)
         cache[dateKey] = item
-        print("💾 ApodRepository: Item cacheado para \(dateKey)")
         return item
     }
     

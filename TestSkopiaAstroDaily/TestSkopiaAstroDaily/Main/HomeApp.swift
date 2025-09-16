@@ -1,10 +1,14 @@
 import SwiftUI
+import CoreData
 
 @main
 struct HomeApp: App {
+    let coreDataStack = CoreDataStack.shared
+    
     var body: some Scene {
         WindowGroup {
             AppRootView()
+                .environment(\.managedObjectContext, coreDataStack.viewContext)
                 .preferredColorScheme(.dark)
                 .environment(\.locale, Locale(identifier: "pt_BR"))
         }

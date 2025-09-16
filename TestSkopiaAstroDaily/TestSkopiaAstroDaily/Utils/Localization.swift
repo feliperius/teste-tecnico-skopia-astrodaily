@@ -1,18 +1,15 @@
 import Foundation
 
 extension String {
-    /// Retorna a string localizada para a chave fornecida
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
     
-    /// Retorna a string localizada com argumentos
     func localized(_ arguments: CVarArg...) -> String {
         return String(format: self.localized, arguments: arguments)
     }
 }
 
-// Constantes para as strings localizadas
 enum Strings {
     // Splash Screen
     static let splashAppName = "splash.app_name".localized

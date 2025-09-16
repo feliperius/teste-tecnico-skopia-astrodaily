@@ -144,7 +144,9 @@ struct FeedView: View {
             }
             .disabled(viewModel.isLoading || viewModel.isToday)
             
-            Button(action: { viewModel.toggleFavorite() }) {
+            Button(action: { 
+                Task { await viewModel.toggleFavorite() }
+            }) {
                 Image(systemName: viewModel.isFavorite() ? "star.fill" : "star")
                     .font(.title3)
                     .foregroundColor(viewModel.isFavorite() ? .yellow : .white)

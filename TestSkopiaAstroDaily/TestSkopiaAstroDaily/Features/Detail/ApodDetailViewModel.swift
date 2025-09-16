@@ -12,7 +12,7 @@ import Observation
 
     var isFavorite: Bool { favoritesManager.isFavorite(item) }
     
-    func toggleFavorite() { favoritesManager.toggleFavorite(item) }
+    func toggleFavorite() async { await favoritesManager.toggleFavorite(item) }
     
     func formattedDate() -> String {
         DateFormatter.localizedLong(fromAPIDateString: item.date)

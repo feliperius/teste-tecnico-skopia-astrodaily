@@ -72,9 +72,9 @@ import Observation
         return favoritesManager.isFavorite(item)
     }
     
-    func toggleFavorite() { 
+    func toggleFavorite() async { 
         guard let item = item else { return }
-        favoritesManager.toggleFavorite(item)
+        await favoritesManager.toggleFavorite(item)
     }
     
     /// Formata data para exibição

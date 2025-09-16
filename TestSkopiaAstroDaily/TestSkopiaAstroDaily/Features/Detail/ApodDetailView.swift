@@ -77,7 +77,11 @@ struct ApodDetailView: View {
         .navigationTitle(Strings.detailTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            Button(action: { viewModel.toggleFavorite() }) {
+            Button(action: { 
+                Task {
+                    await viewModel.toggleFavorite()
+                }
+            }) {
                 Image(systemName: viewModel.isFavorite ? "star.fill" : "star")
                     .foregroundColor(viewModel.isFavorite ? .yellow : .white)
             }
