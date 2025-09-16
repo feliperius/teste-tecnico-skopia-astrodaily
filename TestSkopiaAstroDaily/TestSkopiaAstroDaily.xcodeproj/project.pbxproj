@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		74D5116C2E77661300B4B922 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 74D5116B2E77661300B4B922 /* Alamofire */; };
+		74D5116E2E77662C00B4B922 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 74D5116D2E77662C00B4B922 /* Nuke */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		74FACAC82E77586F00249998 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74D5116C2E77661300B4B922 /* Alamofire in Frameworks */,
+				74D5116E2E77662C00B4B922 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +79,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74D5116A2E77661300B4B922 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		74FACAA92E77586D00249998 = {
 			isa = PBXGroup;
 			children = (
 				74FACAB42E77586D00249998 /* TestSkopiaAstroDaily */,
 				74FACACA2E77586F00249998 /* TestSkopiaAstroDailyTests */,
 				74FACAD42E77586F00249998 /* TestSkopiaAstroDailyUITests */,
+				74D5116A2E77661300B4B922 /* Frameworks */,
 				74FACAB32E77586D00249998 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +127,8 @@
 			);
 			name = TestSkopiaAstroDaily;
 			packageProductDependencies = (
+				74D5116B2E77661300B4B922 /* Alamofire */,
+				74D5116D2E77662C00B4B922 /* Nuke */,
 			);
 			productName = TestSkopiaAstroDaily;
 			productReference = 74FACAB22E77586D00249998 /* TestSkopiaAstroDaily.app */;
@@ -581,6 +598,19 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		74D5116B2E77661300B4B922 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 74FACAE42E775ABF00249998 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		74D5116D2E77662C00B4B922 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 74FACAE62E775CB800249998 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 74FACAAA2E77586D00249998 /* Project object */;
 }
