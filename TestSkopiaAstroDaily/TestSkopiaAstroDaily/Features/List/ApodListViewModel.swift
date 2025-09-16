@@ -2,20 +2,21 @@ import Foundation
 import Observation
 
 @Observable final class ApodListViewModel {
-    private let service: NasaApodServicing
+    private let repository: ApodRepository
     private let days: Int
 
     var items: [ApodItem] = []
     var isLoading = false
-    var error: String?
+    var error: AppError?
 
-    init(service: NasaApodServicing = NasaApodService(), lastNDays: Int = 20) {
-        self.service = service
+    init(repository: ApodRepository = ApodRepository(), lastNDays: Int = 20) {
+        self.repository = repository
         self.days = max(lastNDays, 1)
     }
 
     @MainActor func load() async {
-        isLoading = true; error = nil
+        isLoading = true
+        error = nil
         defer { isLoading = false }
         
         let today = Date()
@@ -32,10 +33,9 @@ import Observation
         let startDate = endDate.adding(days: -(days - 1))
         
         do { 
-            items = try await service.fetchRange(start: startDate, end: endDate)
-        }
-        catch { 
-            self.error = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+            items = try await repository.getApodRange(start: startDate, end: endDate)
+        } catch { 
+            self.error = AppError.from(error)
         }
     }
 }

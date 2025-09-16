@@ -20,7 +20,7 @@ struct FeedView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.black)
                 } else if let err = viewModel.error {
-                    ErrorView(message: err) {
+                    ErrorView(error: err) {
                         Task { await viewModel.loadTodayApod() }
                     }
                 } else if let item = viewModel.item {
@@ -106,7 +106,7 @@ struct FeedView: View {
                         .multilineTextAlignment(.leading)
                         .foregroundColor(.white)
                     
-                    Text(formatDate(item.date))
+                    Text(viewModel.formattedDate())
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     
@@ -127,19 +127,6 @@ struct FeedView: View {
         }
         .padding(.bottom)
         .background(Color.black)
-    }
-    
-    private func formatDate(_ dateString: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        
-        if let date = formatter.date(from: dateString) {
-            formatter.locale = Locale(identifier: "pt_BR")
-            formatter.dateStyle = .full
-            return formatter.string(from: date)
-        }
-        
-        return dateString
     }
 
     @ToolbarContentBuilder
@@ -167,25 +154,4 @@ struct FeedView: View {
     }
 }
 
-struct ErrorView: View {
-    let message: String
-    let retry: () -> Void
-    var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "wifi.exclamationmark")
-                .font(.largeTitle)
-                .foregroundColor(.red)
-            Text(Strings.errorTryAgain)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.white)
-            Button(Strings.errorTryAgain, action: retry)
-                .buttonStyle(.borderedProminent)
-                .accentColor(.white)
-                .foregroundColor(.black)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black)
-    }
-}
 

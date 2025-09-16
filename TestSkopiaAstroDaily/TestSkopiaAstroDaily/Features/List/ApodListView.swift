@@ -18,8 +18,8 @@ struct ApodListView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.black)
             }
-            else if let err = viewModel.error { 
-                ErrorView(message: err) { Task { await viewModel.load() } } 
+            else if let error = viewModel.error { 
+                ErrorView(error: error) { Task { await viewModel.load() } } 
             }
             else { list }
         }

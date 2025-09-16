@@ -51,6 +51,18 @@ enum Strings {
     static let errorDecoding = "error.decoding".localized
     static let errorInvalidResponse = "error.invalid_response".localized
     
+    // AppError specific messages
+    static let errorNoData = "error.noData".localized
+    static let errorCacheFailure = "error.cacheFailure".localized
+    static let errorInvalidDate = "error.invalidDate".localized
+    
+    // Recovery suggestions
+    static let errorRecoveryNoData = "error.recovery.noData".localized
+    static let errorRecoveryNetwork = "error.recovery.network".localized
+    static let errorRecoveryTryAgain = "error.recovery.tryAgain".localized
+    static let errorRecoveryRestart = "error.recovery.restart".localized
+    static let errorRecoverySelectValidDate = "error.recovery.selectValidDate".localized
+    
     // Common
     static let copyright = "copyright".localized
     static let loading = "loading".localized

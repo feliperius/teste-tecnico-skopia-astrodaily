@@ -3,13 +3,20 @@ import Observation
 
 @Observable final class ApodDetailViewModel {
     let item: ApodItem
-    private let favorites: FavoritesStoring
+    private let favoritesManager: FavoritesManager
 
-    init(item: ApodItem, favorites: FavoritesStoring = UserDefaultsFavoritesStore()) {
-        self.item = item; self.favorites = favorites
+    init(item: ApodItem, favoritesManager: FavoritesManager = FavoritesManager()) {
+        self.item = item
+        self.favoritesManager = favoritesManager
     }
 
-    var isFavorite: Bool { favorites.isFavorite(item.id) }
-    func toggleFavorite() { favorites.toggleFavorite(item) }
+    var isFavorite: Bool { favoritesManager.isFavorite(item) }
+    
+    func toggleFavorite() { favoritesManager.toggleFavorite(item) }
+    
+    /// Formata data para exibição
+    func formattedDate() -> String {
+        DateFormatter.localizedLong(fromAPIDateString: item.date)
+    }
 }
 

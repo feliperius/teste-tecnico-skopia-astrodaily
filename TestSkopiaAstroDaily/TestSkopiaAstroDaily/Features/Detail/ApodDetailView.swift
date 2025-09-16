@@ -54,7 +54,7 @@ struct ApodDetailView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     
-                    Text(formatDate(viewModel.item.date))
+                    Text(viewModel.formattedDate())
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     
@@ -82,18 +82,5 @@ struct ApodDetailView: View {
                     .foregroundColor(viewModel.isFavorite ? .yellow : .white)
             }
         }
-    }
-    
-    private func formatDate(_ dateString: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        
-        if let date = formatter.date(from: dateString) {
-            formatter.locale = Locale(identifier: "pt_BR")
-            formatter.dateStyle = .full
-            return formatter.string(from: date)
-        }
-        
-        return dateString
     }
 }

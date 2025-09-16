@@ -6,7 +6,7 @@ protocol NasaApodServicing {
     func fetchRange(start: Date, end: Date) async throws -> [ApodItem]
 }
 
-enum NetworkError: LocalizedError {
+enum NetworkError: LocalizedError, Equatable {
     case http(Int)
     case decoding
     case invalidResponse

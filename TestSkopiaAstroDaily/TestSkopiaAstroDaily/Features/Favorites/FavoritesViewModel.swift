@@ -2,13 +2,14 @@ import Foundation
 import Observation
 
 @Observable final class FavoritesViewModel {
-    private let store: FavoritesStoring
-    var items: [ApodItem] = []
+    private let favoritesManager: FavoritesManager
+    
+    var items: [ApodItem] { favoritesManager.favoriteItems }
+    var favoriteCount: Int { favoritesManager.favoriteCount }
 
-    init(store: FavoritesStoring = UserDefaultsFavoritesStore()) {
-        self.store = store
-        reload()
+    init(favoritesManager: FavoritesManager = FavoritesManager()) {
+        self.favoritesManager = favoritesManager
     }
 
-    func reload() { items = store.all() }
+    func reload() { favoritesManager.reload() }
 }
