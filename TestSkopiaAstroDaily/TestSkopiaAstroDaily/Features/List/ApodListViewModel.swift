@@ -17,9 +17,27 @@ import Observation
     @MainActor func load() async {
         isLoading = true; error = nil
         defer { isLoading = false }
-        let end = Date()
-        let start = end.adding(days: -(days - 1))
-        do { items = try await service.fetchRange(start: start, end: end) }
-        catch { self.error = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription }
+        
+        // Usar data atual ou anterior se for muito cedo
+        let today = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour], from: today)
+        
+        let endDate: Date
+        if let hour = components.hour, hour < 12 {
+            // Se for muito cedo, use ontem como data final
+            endDate = calendar.date(byAdding: .day, value: -1, to: today) ?? today
+        } else {
+            endDate = today
+        }
+        
+        let startDate = endDate.adding(days: -(days - 1))
+        
+        do { 
+            items = try await service.fetchRange(start: startDate, end: endDate)
+        }
+        catch { 
+            self.error = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+        }
     }
 }

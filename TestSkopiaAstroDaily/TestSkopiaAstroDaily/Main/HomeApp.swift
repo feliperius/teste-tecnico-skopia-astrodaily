@@ -3,7 +3,10 @@ import SwiftUI
 @main
 struct HomeApp: App {
     var body: some Scene {
-        WindowGroup { RootTabs() }
+        WindowGroup { 
+            RootTabs()
+                .preferredColorScheme(.dark)
+        }
     }
 }
 
@@ -19,6 +22,9 @@ struct RootTabs: View {
             NavigationStack { FavoritesView() }
                 .tabItem { Label("Favoritos", systemImage: "star.fill") }
         }
+        .background(Color.black)
+        .accentColor(.white)
+        .preferredColorScheme(.dark)
     }
 }
 

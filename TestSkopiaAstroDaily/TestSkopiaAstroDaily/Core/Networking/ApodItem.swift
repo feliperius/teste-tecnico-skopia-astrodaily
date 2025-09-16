@@ -7,13 +7,15 @@ struct ApodItem: Codable, Identifiable, Hashable {
     let copyright: String?
     let thumbnail_url: String?
     let mediaType: String
-    let serviceVersion: String
+    let serviceVersion: String?
     let title: String
-    let url: String
+    let url: String?
     var id: String { date }
     var displayImageURL: URL? {
         if mediaTypeEnum == .video, let t = thumbnail_url, let u = URL(string: t) { return u }
-        return URL(string: url)
+        if let hdurl = hdurl, let u = URL(string: hdurl) { return u }
+        if let url = url, let u = URL(string: url) { return u }
+        return nil
     }
     
     enum CodingKeys: String, CodingKey {
