@@ -3,9 +3,9 @@ import Observation
 
 @Observable final class ApodDetailViewModel {
     let item: ApodItem
-    private let favoritesManager: FavoritesManager
+    private let favoritesManager: FavoritesManagerProtocol
 
-    init(item: ApodItem, favoritesManager: FavoritesManager = FavoritesManager()) {
+    init(item: ApodItem, favoritesManager: FavoritesManagerProtocol = FavoritesManager()) {
         self.item = item
         self.favoritesManager = favoritesManager
     }

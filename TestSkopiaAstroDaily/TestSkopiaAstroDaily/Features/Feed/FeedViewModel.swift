@@ -2,8 +2,8 @@ import Foundation
 import Observation
 
 @Observable final class FeedViewModel {
-    private let repository: ApodRepository
-    private let favoritesManager: FavoritesManager
+    private let repository: ApodRepositoryProtocol
+    private let favoritesManager: FavoritesManagerProtocol
 
     var currentDate: Date = Date()
     var item: ApodItem?
@@ -14,8 +14,8 @@ import Observation
         return currentDate.isNasaToday() || currentDate > Date.nasaTodayDate
     }
 
-    init(repository: ApodRepository = ApodRepository(),
-         favoritesManager: FavoritesManager = FavoritesManager()) {
+    init(repository: ApodRepositoryProtocol = ApodRepository(),
+         favoritesManager: FavoritesManagerProtocol = FavoritesManager()) {
         self.repository = repository
         self.favoritesManager = favoritesManager
         self.currentDate = Date.nasaTodayDate
@@ -54,15 +54,15 @@ import Observation
         }
     }
 
-    func prevDay() { 
+    func prevDay() async { 
         currentDate = currentDate.adding(days: -1)
-        Task { await load() } 
+        await load()
     }
     
-    func nextDay() {
+    func nextDay() async {
         guard !isToday else { return }
         currentDate = currentDate.adding(days: 1)
-        Task { await load() }
+        await load()
     }
 
     func isFavorite() -> Bool { 

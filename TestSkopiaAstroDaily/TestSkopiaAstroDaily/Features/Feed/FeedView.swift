@@ -132,13 +132,17 @@ struct FeedView: View {
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Button(action: viewModel.prevDay) {
+            Button(action: { 
+                Task { await viewModel.prevDay() }
+            }) {
                 Image(systemName: "chevron.left")
                     .font(.title3)
             }
             .disabled(viewModel.isLoading)
             
-            Button(action: viewModel.nextDay) {
+            Button(action: { 
+                Task { await viewModel.nextDay() }
+            }) {
                 Image(systemName: "chevron.right")
                     .font(.title3)
             }

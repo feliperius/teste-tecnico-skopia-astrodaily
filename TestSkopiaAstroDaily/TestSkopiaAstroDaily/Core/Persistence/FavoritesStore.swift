@@ -52,15 +52,25 @@ final class CoreDataFavoritesStore: FavoritesStoring {
             return 
         }
         
+        guard !item.id.isEmpty,
+              !item.title.isEmpty,
+              !item.explanation.isEmpty,
+              !item.date.isEmpty,
+              !item.mediaType.isEmpty else {
+            throw FavoritesError.invalidData("ApodItem has invalid required fields")
+        }
+        
         let currentCount = count()
         guard currentCount < Constants.maxFavorites else {
             throw FavoritesError.limitExceeded
         }
         
         let context = coreDataStack.viewContext
-        _ = FavoriteAPOD(from: item, context: context)
         
         do {
+            _ = try FavoriteAPOD(from: item, context: context)
+            
+            // Salvar diretamente - Core Data já fará validação automática
             try coreDataStack.save()
         } catch {
             context.rollback()
@@ -117,6 +127,7 @@ enum FavoritesError: LocalizedError {
     case saveFailed(Error)
     case deleteFailed(Error)
     case fetchFailed(Error)
+    case invalidData(String)
     
     var errorDescription: String? {
         switch self {
@@ -128,6 +139,8 @@ enum FavoritesError: LocalizedError {
             return "Failed to delete favorite: \(error.localizedDescription)"
         case .fetchFailed(let error):
             return "Failed to fetch favorites: \(error.localizedDescription)"
+        case .invalidData(let message):
+            return "Invalid data: \(message)"
         }
     }
 }

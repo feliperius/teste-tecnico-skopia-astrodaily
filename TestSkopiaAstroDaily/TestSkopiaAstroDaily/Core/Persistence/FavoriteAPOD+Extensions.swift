@@ -3,8 +3,19 @@ import CoreData
 
 extension FavoriteAPOD {
     // MARK: - Initialization
-    convenience init(from apodItem: ApodItem, context: NSManagedObjectContext) {
+    convenience init(from apodItem: ApodItem, context: NSManagedObjectContext) throws {
         self.init(context: context)
+        
+        guard !apodItem.id.isEmpty,
+              !apodItem.title.isEmpty,
+              !apodItem.explanation.isEmpty,
+              !apodItem.date.isEmpty,
+              !apodItem.mediaType.isEmpty else {
+            throw NSError(domain: "FavoriteAPODError", code: 1001, userInfo: [
+                NSLocalizedDescriptionKey: "ApodItem has invalid required fields"
+            ])
+        }
+        
         self.id = apodItem.id
         self.title = apodItem.title
         self.explanation = apodItem.explanation

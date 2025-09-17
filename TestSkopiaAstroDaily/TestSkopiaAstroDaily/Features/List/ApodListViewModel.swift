@@ -1,6 +1,29 @@
 import Foundation
 import Observation
 
+protocol ApodRepositoryProtocol {
+    func getApodRange(start: Date, end: Date) async throws -> [ApodItem]
+    func getCurrentApod() async throws -> (item: ApodItem, actualDate: Date)
+    func getApod(for date: Date) async throws -> ApodItem
+}
+
+protocol FavoritesManagerProtocol: AnyObject {
+    var favoriteIds: Set<String> { get set }
+    var favoriteItems: [ApodItem] { get set }
+    var error: AppError? { get set }
+    
+    func isFavorite(_ id: String) -> Bool
+    func isFavorite(_ item: ApodItem) -> Bool
+    func toggleFavorite(_ item: ApodItem) async
+    func addFavorite(_ item: ApodItem) async throws
+    func removeFavorite(_ item: ApodItem) async throws
+    func reload()
+    var favoriteCount: Int { get }
+}
+
+extension ApodRepository: ApodRepositoryProtocol {}
+extension FavoritesManager: FavoritesManagerProtocol {}
+
 @Observable final class ApodListViewModel {
     // MARK: - Constants
     private enum Constants {
@@ -11,8 +34,8 @@ import Observation
     }
     
     // MARK: - Properties
-    private let repository: ApodRepository
-    private let favoritesManager: FavoritesManager
+    private let repository: ApodRepositoryProtocol
+    private let favoritesManager: FavoritesManagerProtocol
     private let days: Int
     
     var items: [ApodItem] = []
@@ -21,8 +44,8 @@ import Observation
     var favoriteIds: Set<String> = []
 
     // MARK: - Initialization
-    init(repository: ApodRepository = ApodRepository(), 
-         favoritesManager: FavoritesManager = FavoritesManager(),
+    init(repository: ApodRepositoryProtocol = ApodRepository(), 
+         favoritesManager: FavoritesManagerProtocol = FavoritesManager(),
          lastNDays: Int = Constants.defaultDaysToLoad) {
         self.repository = repository
         self.favoritesManager = favoritesManager
