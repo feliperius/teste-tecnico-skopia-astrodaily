@@ -27,8 +27,6 @@ import Observation
         self.repository = repository
         self.favoritesManager = favoritesManager
         self.days = max(lastNDays, Constants.minimumDaysToLoad)
-        
-        // Load initial favorite state
         loadFavoriteIds()
     }
 
@@ -38,22 +36,11 @@ import Observation
         error = nil
         defer { isLoading = false }
         
-        let today = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.hour], from: today)
-        
-        let endDate: Date
-        if let hour = components.hour, hour < Constants.noonHour {
-            endDate = calendar.date(byAdding: .day, value: Constants.previousDayOffset, to: today) ?? today
-        } else {
-            endDate = today
-        }
-        
+        let endDate = Date.nasaTodayDate
         let startDate = endDate.adding(days: -(days - Constants.minimumDaysToLoad))
-        
         do { 
             items = try await repository.getApodRange(start: startDate, end: endDate)
-            loadFavoriteIds() // Refresh favorite state after loading items
+            loadFavoriteIds()
         } catch { 
             self.error = AppError.from(error)
         }

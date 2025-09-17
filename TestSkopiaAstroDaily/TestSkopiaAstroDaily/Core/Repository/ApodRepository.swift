@@ -22,24 +22,23 @@ import Observation
     }
     
     func getCurrentApod() async throws -> (item: ApodItem, actualDate: Date) {
-        var dateToTry = Date()
+        // Usa a data "hoje" baseada no timezone da NASA com margem de segurança
+        var dateToTry = Date.nasaTodayDate
         var attempts = 0
         let maxAttempts = 5
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.hour], from: dateToTry)
-        if let hour = components.hour, hour < 12 {
-            dateToTry = calendar.date(byAdding: .day, value: -1, to: dateToTry) ?? dateToTry
-        }
+        
+        print("🌍 ApodRepository: Tentando buscar foto do dia para data NASA: \(dateToTry.apodString)")
         
         while attempts < maxAttempts {
             do {
                 let item = try await getApod(for: dateToTry)
+                print("✅ ApodRepository: Foto do dia encontrada para: \(dateToTry.apodString)")
                 return (item, dateToTry)
             } catch let error as NetworkError {
                 if case .http(404) = error {
                     dateToTry = dateToTry.adding(days: -1)
                     attempts += 1
-                    print("🔄 ApodRepository: Tentando data anterior: \(dateToTry.apodString)")
+                    print("🔄 ApodRepository: Foto não encontrada, tentando data anterior: \(dateToTry.apodString)")
                 } else {
                     throw error
                 }

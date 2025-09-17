@@ -1,6 +1,6 @@
-# TestSkopiaAstroDaily
+# Teste Técnico – Desenvolvedor iOS 
 
-Um aplicativo iOS para visualizar a Astronomia do Dia (APOD) da NASA, desenvolvido em SwiftUI seguindo as melhores práticas de desenvolvimento iOS.
+Um aplicativo iOS para visualizar a Astronomia do Dia da NASA, desenvolvido em SwiftUI seguindo as melhores práticas de desenvolvimento iOS.
 
 ## 📋 Descrição
 
@@ -140,12 +140,6 @@ cmd + u
 - [x] Cache de imagens otimizado
 - [x] Interface responsiva
 
-### 🎨 Interface
-- Design moderno e intuitivo
-- Animações suaves
-- Modo escuro nativo
-- Splash screen personalizada
-- Indicadores de carregamento
 
 ## 🔧 Pontos de Melhoria
 
@@ -155,61 +149,11 @@ cmd + u
 - [ ] **Cache Strategy**: Cache de rede mais inteligente
 - [ ] **Image Compression**: Otimização automática de imagens
 
-### 🧪 Testes
-- [ ] **Unit Tests**: Cobertura de 80%+ nos ViewModels
-- [ ] **Integration Tests**: Testes de integração com API
-- [ ] **UI Tests**: Automação de fluxos principais
-- [ ] **Snapshot Tests**: Testes visuais de regressão
-
 ### 🏗️ Arquitetura
 - [ ] **Dependency Injection**: Container de DI (Swinject)
 - [ ] **Coordinator Pattern**: Navegação centralizada
 - [ ] **Use Cases**: Camada de casos de uso
 - [ ] **Clean Architecture**: Evolução para Clean Architecture
-
-### 📱 Funcionalidades
-- [ ] **Compartilhamento**: Share de imagens e informações
-- [ ] **Notificações**: Push notifications para novos APODs
-- [ ] **Pesquisa**: Busca por título ou data
-- [ ] **Filtros**: Filtros por tipo (imagem/vídeo)
-- [ ] **Offline Mode**: Funcionalidade offline básica
-- [ ] **Apple Watch**: Extensão para watchOS
-
-### 🎨 UI/UX
-- [ ] **Tema Personalizado**: Múltiplos temas
-- [ ] **Acessibilidade**: Melhorias de accessibility
-- [ ] **iPad Support**: Layout otimizado para iPad
-- [ ] **Widgets**: Widget para tela inicial
-- [ ] **3D Touch**: Peek & Pop para preview
-
-### 🔒 Segurança
-- [ ] **SSL Pinning**: Segurança adicional na rede
-- [ ] **Keychain**: Armazenamento seguro de credenciais
-- [ ] **Biometria**: Autenticação biométrica opcional
-
-## 📊 Métricas e Analytics
-
-### Sugestões de Implementação
-- [ ] **Firebase Analytics**: Tracking de eventos
-- [ ] **Crashlytics**: Monitoramento de crashes
-- [ ] **Performance Monitoring**: Métricas de performance
-
-## 🎯 Roadmap
-
-### v1.1 (Próxima Release)
-- Testes unitários completos
-- Modo offline básico
-- Melhorias de performance
-
-### v1.2 (Futuro)
-- Apple Watch support
-- Widgets iOS
-- Notificações push
-
-### v2.0 (Longo Prazo)
-- Clean Architecture completa
-- Modo multi-usuário
-- Sincronização na nuvem
 
 ## 👨‍💻 Desenvolvedor
 
@@ -235,14 +179,6 @@ xcrun simctl erase all
 # Build via terminal
 xcodebuild -project TestSkopiaAstroDaily.xcodeproj -scheme TestSkopiaAstroDaily -destination 'platform=iOS Simulator,name=iPhone 15' build
 ```
-
-#### Estrutura de Commits
-- `feat:` Nova funcionalidade
-- `fix:` Correção de bug
-- `refactor:` Refatoração de código
-- `style:` Mudanças de estilo/formatação
-- `test:` Adição de testes
-- `docs:` Documentação
 
 #### API Endpoints Utilizados
 - **APOD**: `https://api.nasa.gov/planetary/apod`

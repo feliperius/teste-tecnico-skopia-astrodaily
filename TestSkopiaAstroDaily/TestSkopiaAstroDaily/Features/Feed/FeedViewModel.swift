@@ -11,17 +11,15 @@ import Observation
     var error: AppError?
     
     var isToday: Bool {
-        let calendar = Calendar.current
-        let today = Date()
-        return calendar.isDate(currentDate, inSameDayAs: today) || currentDate > today
+        return currentDate.isNasaToday() || currentDate > Date.nasaTodayDate
     }
 
     init(repository: ApodRepository = ApodRepository(),
          favoritesManager: FavoritesManager = FavoritesManager()) {
         self.repository = repository
         self.favoritesManager = favoritesManager
-        self.currentDate = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
-        print("📅 FeedViewModel: Data inicial definida como hoje: \(currentDate.apodString)")
+        self.currentDate = Date.nasaTodayDate
+        print("📅 FeedViewModel: Data inicial definida como hoje (NASA timezone): \(currentDate.apodString)")
     }
 
     @MainActor func loadTodayApod() async {
@@ -77,7 +75,6 @@ import Observation
         await favoritesManager.toggleFavorite(item)
     }
     
-    /// Formata data para exibição
     func formattedDate() -> String {
         guard let item = item else { return "" }
         return DateFormatter.localizedLong(fromAPIDateString: item.date)
