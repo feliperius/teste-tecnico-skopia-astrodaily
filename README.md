@@ -12,7 +12,7 @@ O aplicativo consome a API da NASA para exibir a imagem astronômica do dia, per
 - **Justificativa**: Escolhida para separar claramente a lógica de negócio da interface, facilitando testes e manutenção
 - **ViewModels**: Gerenciam estado e lógica de negócio usando `@ObservableObject` e `@Published`
 - **Views**: Focadas apenas na apresentação usando SwiftUI
-- **Models**: Estruturas de dados simples e bem definidas
+- **Models**: Estruturas de dados simples usando struct e codable
 
 ### Tecnologias Utilizadas
 - **Linguagem**: Swift 5.0+
@@ -53,7 +53,6 @@ TestSkopiaAstroDaily/
   - Thread safety nativo
 
 #### 2. **Kingfisher para Cache de Imagens**
-- **Migração**: Nuke → Kingfisher
 - **Justificativa**:
   - Melhor integração com SwiftUI
   - Cache mais eficiente
@@ -126,6 +125,49 @@ cmd + u
 # Selecione o scheme TestSkopiaAstroDailyUITests
 ```
 
+### 🎭 Testes de UI
+
+O projeto conta com **4 testes de UI essenciais** que cobrem as funcionalidades mais críticas da aplicação:
+
+#### **Cobertura dos Testes Essenciais**
+
+**� Launch Test** (`testAppLaunchesSuccessfully`)
+- Verifica se o app abre sem crashes
+- Valida que a tela principal aparece corretamente
+- Teste de estabilidade básica
+
+**📱 Content Display Test** (`testFeedDisplaysAPODContent`)
+- Valida exibição do conteúdo APOD
+- Verifica carregamento de título e imagem
+- Teste de funcionalidade principal
+
+**⬅️ Navigation Test** (`testNavigateToPreviousDay`)
+- Testa navegação entre diferentes datas
+- Valida estados dos botões de navegação
+- Verifica carregamento após navegação
+
+**⭐ Favorites Test** (`testToggleFavorite`)
+- Testa funcionalidade de favoritos
+- Verifica interação com botão de favorito
+- Valida que o elemento permanece responsivo
+
+#### **Estrutura Simplificada**
+
+```
+TestSkopiaAstroDailyUITests/
+├── ComprehensiveUITests.swift    # EssentialUITests (4 testes principais)
+├── FunctionalUITests.swift       # Arquivo mínimo (apenas import)
+├── UITestHelpers.swift          # Page Objects para suporte
+├── TestSkopiaAstroDailyUITests.swift         # Arquivo mínimo
+└── LaunchTests.swift  # Teste de screenshot
+```
+
+#### **Execução Rápida**
+- ⚡ Apenas 4 testes essenciais
+- 🎯 Cobertura focada nas funcionalidades críticas
+- 🚀 Execução otimizada e rápida
+- ✅ Sem redundâncias ou testes desnecessários
+
 ## 🎯 Funcionalidades
 
 ### ✅ Implementadas
@@ -146,14 +188,13 @@ cmd + u
 ### 📈 Performance
 - [ ] **Paginação**: Implementar carregamento incremental na lista
 - [ ] **Prefetch**: Pre-carregamento de imagens adjacentes
+- [ ] **Sincronização de Dados**: Armazenar resultados das imagens APOD no banco de dados local (Core Data) com sincronização inteligente para evitar requests desnecessários nas consultas por data
 - [ ] **Cache Strategy**: Cache de rede mais inteligente
 - [ ] **Image Compression**: Otimização automática de imagens
 
 ### 🏗️ Arquitetura
 - [ ] **Dependency Injection**: Container de DI (Swinject)
 - [ ] **Coordinator Pattern**: Navegação centralizada
-- [ ] **Use Cases**: Camada de casos de uso
-- [ ] **Clean Architecture**: Evolução para Clean Architecture
 
 ## 👨‍💻 Desenvolvedor
 

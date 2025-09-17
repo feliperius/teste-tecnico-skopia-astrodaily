@@ -42,11 +42,10 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "YES"
-            parallelizable = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "74FACAD02E77586F00249998"
+               BlueprintIdentifier = "744BE2F62E7B248D009CCC83"
                BuildableName = "TestSkopiaAstroDailyUITests.xctest"
                BlueprintName = "TestSkopiaAstroDailyUITests"
                ReferencedContainer = "container:TestSkopiaAstroDaily.xcodeproj">
